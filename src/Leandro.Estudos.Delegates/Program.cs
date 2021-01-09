@@ -26,34 +26,7 @@ namespace Leandro.Estudos.Delegates
       var pessoaString = pessoa.ToString(mostrarNomeIdade);
       Console.WriteLine(pessoaString);
 
-      ///////Multicast Delegates
-      Action<string> notificarPorSms = m => imprimirTexto($"notificado por sms: {m}");
-      Action<string> notificarPorEmail = m => throw new Exception("Deu ruim");
-      Action<string> notificarPorWhatsapp = m => imprimirTexto($"notificado por whatsapp: {m}");
-
-
-      Action<string> notificarTudo =
-        notificarPorSms
-        + notificarPorEmail
-        + notificarPorWhatsapp;
-
-      //notificarTudo("Notificacao com Problema");
-
-      //safe call
-      Action<Delegate> safeCAllDelegate = handler =>
-      {
-        try{
-            handler.DynamicInvoke("Hello safe Delegates");            
-        }
-        catch(Exception ex){
-            imprimirTexto(ex.Message);
-        }
-      };
-
-      notificarTudo
-        .GetInvocationList()
-        .ToList()
-        .ForEach(safeCAllDelegate);
+     new MulticastDelegates().Run();
     }
   }
 }
