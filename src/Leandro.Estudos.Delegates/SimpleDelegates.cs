@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text;
 
 namespace Leandro.Estudos.Delegates
 {
@@ -26,10 +27,14 @@ namespace Leandro.Estudos.Delegates
 
     public void Exemplo2()
     {
-      TransformarTexto inverter = texto => texto.Reverse().ToString();
-      Func<string, string> inverterAction = texto => texto.Reverse().ToString();
+      ImprimirTexto imprimirTexto = Console.WriteLine;
+      TransformarTexto inverterTexto = texto => new string(texto.Reverse().ToArray());
+      Func<string, string> toBase64 = texto => Convert.ToBase64String(Encoding.UTF8.GetBytes(texto));
       ToUpperCase = texto => texto.ToUpper();
-      ToUpperCase("Delegates é tooop!");
+
+      imprimirTexto(inverterTexto("leandro alves"));
+      imprimirTexto(toBase64("leandro alves"));
+      imprimirTexto(ToUpperCase("Delegates é tooop!"));
     }
 
     public void Exemplo3()
