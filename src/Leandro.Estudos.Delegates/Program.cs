@@ -7,8 +7,19 @@ namespace Leandro.Estudos.Delegates
   {
     static void Main(string[] args)
     {
-      new SimpleDelegates().Run();
-      new MulticastDelegates().Run();
+      var simpleDelegates = new SimpleDelegates();
+      simpleDelegates.Run();
+      simpleDelegates.LogError = LogError;
+      simpleDelegates.Run();
+
+      // new MulticastDelegates().Run();
+    }
+
+    static void LogError(string erro)
+    {
+      Console.ForegroundColor = ConsoleColor.Magenta;
+      Console.Error.WriteLine(erro);
+      Console.ForegroundColor = ConsoleColor.White;
     }
   }
 }

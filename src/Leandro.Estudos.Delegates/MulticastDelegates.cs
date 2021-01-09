@@ -12,14 +12,12 @@ namespace Leandro.Estudos.Delegates
 
     public MulticastDelegates()
     {
-
       notificarPorSms = m => notificar($"notificado por sms: {m}");
       notificarPorEmail = m => throw new Exception("Deu ruim");
       notificarPorWhatsapp = m => notificar($"notificado por whatsapp: {m}");
     }
     public void Run()
     {
-
       Action<string> notificarTudo =
       notificarPorSms
       + notificarPorEmail

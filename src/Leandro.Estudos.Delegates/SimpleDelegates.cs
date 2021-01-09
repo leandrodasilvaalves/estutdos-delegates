@@ -12,29 +12,43 @@ namespace Leandro.Estudos.Delegates
 
     public void Run()
     {
-      ImprimirTexto imprimirTexto = Console.WriteLine;
-      Action<string> imprimirTextoAction = Console.WriteLine;
+      Exemplo1();
+      Exemplo2();
+      Exemplo3();
+    }
 
+    public void Exemplo1()
+    {
+      if (LogError == null)
+        LogError = DefaultLogError;
+      LogError("Ocorreu um erro inesperado :(");
+    }
+
+    public void Exemplo2()
+    {
       TransformarTexto inverter = texto => texto.Reverse().ToString();
       Func<string, string> inverterAction = texto => texto.Reverse().ToString();
-
-      LogError = erro =>
-      {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Error.WriteLine(erro);
-        Console.ForegroundColor = ConsoleColor.White;
-      };
-      LogError("Ocorreu um erro inesperado :(");
-
       ToUpperCase = texto => texto.ToUpper();
       ToUpperCase("Delegates é tooop!");
+    }
 
+    public void Exemplo3()
+    {
+      ImprimirTexto imprimirTexto = Console.WriteLine;
+      Action<string> imprimirTextoAction = Console.WriteLine;
       Func<Pessoa, string> mostrarNomeIdade = p => $"Nome: {p.Nome} | Idade: { p.Idade}";
       Func<Pessoa, string> mostrarNome = p => $"Nome: {p.Nome}";
 
       var pessoa = new Pessoa("Leandro", 34);
       imprimirTextoAction(pessoa.ToString(mostrarNome));
       imprimirTexto(pessoa.ToString(mostrarNomeIdade));
+    }
+
+    private void DefaultLogError(string erro)
+    {
+      Console.ForegroundColor = ConsoleColor.Red;
+      Console.Error.WriteLine(erro);
+      Console.ForegroundColor = ConsoleColor.White;
     }
   }
 }
